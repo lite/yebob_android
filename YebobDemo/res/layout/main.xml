@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:orientation="horizontal" android:baselineAligned="false" android:layout_height="fill_parent">
+    <LinearLayout android:id="@+id/linearLayout1" android:layout_gravity="center" android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="vertical" android:background="@drawable/background">
+        <TextView android:id="@+id/margin" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginTop="50dip" android:layout_marginBottom="50dip"></TextView>
+        <TextView android:textSize="40sp" android:layout_width="wrap_content" android:layout_gravity="center_horizontal" android:layout_height="wrap_content" android:text="@string/app_name"  android:layout_weight="1" android:id="@+id/textAppName"></TextView>
+
+        <TextView android:textSize="18sp" android:layout_width="wrap_content" android:layout_gravity="center_horizontal" android:layout_height="wrap_content" android:text="@string/start_game" android:layout_weight="1" android:id="@+id/btnStartGame"></TextView>
+        <TextView android:textSize="18sp" android:layout_width="wrap_content" android:layout_gravity="center_horizontal" android:layout_height="wrap_content" android:text="@string/friends" android:layout_weight="1" android:id="@+id/btnFriends"></TextView>
+        
+        <TextView android:textSize="18sp" android:layout_width="wrap_content" android:layout_gravity="center_horizontal" android:layout_height="wrap_content" android:text="@string/demo" android:layout_weight="1" android:id="@+id/btnDemo"></TextView>
+        <TextView android:textSize="18sp" android:layout_width="wrap_content" android:layout_gravity="center_horizontal" android:layout_height="wrap_content" android:text="@string/options" android:layout_weight="1" android:id="@+id/btnOptions"></TextView>
+        <TextView android:textSize="18sp" android:layout_width="wrap_content" android:layout_gravity="center_horizontal" android:layout_height="wrap_content" android:text="@string/exit" android:layout_weight="1" android:id="@+id/btnExit"></TextView>
+    </LinearLayout>
+    
+</LinearLayout>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  
+   <PreferenceCategory android:title="Controls Options">
+   
+   		<ListPreference
+           android:title="Controls"
+           android:summary="This preference allows you to select the way of controling player"
+           android:defaultValue="1"
+           android:entries="@array/controls"
+           android:entryValues="@array/controls_values" android:key="lstControls"/>  
+           
+   </PreferenceCategory>    
+   
+   <PreferenceCategory android:title="Sound Options">  
+           
+           <CheckBoxPreference
+                android:key="chkMusic"
+                android:title="Music"
+                android:defaultValue="true"
+                android:summary="This preference allows you to turn music on or off" /> 
+                
+           <CheckBoxPreference
+                android:key="chkSound"
+                android:title="Sound Effects"
+                android:defaultValue="true"
+                android:summary="This preference allows you to turn sound effects on or off" />
+                
+   </PreferenceCategory> 
+   
+   <PreferenceCategory android:title="Display Options">
+    
+           <ListPreference android:summary="This preference allows you to select resolution"
+			     android:defaultValue="1"
+			     android:entries="@array/resolution" 
+			     android:entryValues="@array/resolution_values" 
+			     android:title="Resolution" 
+			     android:key="lstResolution"/>   
+			     
+	 </PreferenceCategory>       
+
+
+   <PreferenceCategory android:title="Game Options"> 
+           <CheckBoxPreference
+                android:key="chkVibration"
+                android:title="Vibration"
+                android:defaultValue="true"
+                android:summary="This preference allows you to turn vibration on or off" />
+                
+           <CheckBoxPreference
+                android:key="chkAutoFire"
+                android:title="AutoFire"
+                android:defaultValue="true"
+                android:summary="This preference allows you to turn autofire on or off" /> 
+                
+    </PreferenceCategory>
+        
+    <PreferenceCategory android:title="Difficulty Options">
+    
+    <ListPreference android:summary="This preference allows you to select game level"
+     android:defaultValue="1" android:entries="@array/difficulty" 
+     android:entryValues="@array/difficulty_values" 
+     android:title="Difficulty Level" 
+     android:key="lstDifficulty"/>
+    
+    </PreferenceCategory>
+  
+</PreferenceScreen>
