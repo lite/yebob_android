@@ -1,6 +1,11 @@
 package com.yebob.api;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -13,6 +18,10 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Application;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Environment;
 import android.util.Log;
 
 public class Api {
@@ -82,6 +91,58 @@ public class Api {
 		getWithToken(token, url, handler);
 	}
 
+    // app 
+ 	public static void showDetail(Application my, String appId){
+ 		Uri uri = Uri.parse("market://details?id=" + appId);  
+ 		Intent intent = new Intent(Intent.ACTION_VIEW, uri); 
+ 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+ 		my.startActivity(intent); 
+ 	}
+ 	
+ 	private void installApk(Application my, String pathApk){
+ 		Intent intent = new Intent(Intent.ACTION_VIEW);
+ 		intent.setDataAndType(Uri.fromFile(new File(pathApk)), 
+ 				"application/vnd.android.package-archive");
+ 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+ 		my.startActivity(intent);  
+ 	}
+ 	
+ 	private void downloadApk(String urlApk, String apkName){
+         try{
+             URL url = new URL(urlApk);
+             HttpURLConnection c = (HttpURLConnection) url.openConnection();
+             c.setRequestMethod("GET");
+             c.setDoOutput(true);
+             c.connect(); 
+
+             String PATH = Environment.getExternalStorageDirectory() + "/download/";
+             File file = new File(PATH); 
+             if (!file.exists()) {
+                 file.mkdirs();
+             }
+             File outputFile = new File(file, apkName);           
+             FileOutputStream fos = new FileOutputStream(outputFile);
+             InputStream is = c.getInputStream();
+
+             byte[] buffer = new byte[1024];
+             int len1 = 0;
+             while ((len1 = is.read(buffer)) != -1) {
+                 fos.write(buffer, 0, len1); 
+             }
+             fos.close();
+             is.close();
+         } 
+         catch (IOException e) 
+         {
+         	defaultErrorHandler(Error.DOWNLOAD_ERROR, e.toString());
+         }   
+ 	}
+ 	
+	public static void defaultErrorHandler(int code, String msg)
+    {
+        Log.e(LOG_TAG, "code:" + code + ", msg: {1}" + msg);
+    }
+	
 	// ##########
 	private static void getWithTokenSession(String token, String session, String url, Handler handler) {
 		HttpGet request = new HttpGet(url);
@@ -154,10 +215,5 @@ public class Api {
 	private static void defaultHandler(JSONObject json) throws JSONException 
     {
         Log.e(LOG_TAG, json.toString());
-    }
-	
-	private static void defaultErrorHandler(int code, String msg)
-    {
-        Log.e(LOG_TAG, "code:" + code + ", msg: {1}" + msg);
     }
 }

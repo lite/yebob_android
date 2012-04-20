@@ -3,21 +3,21 @@ package com.yebob.api;
 import static android.view.ViewGroup.LayoutParams.FILL_PARENT;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.os.Bundle;
+import android.os.Message;
+import android.view.KeyEvent;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.webkit.HttpAuthHandler;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.graphics.Bitmap;
-import android.webkit.SslErrorHandler;
-import android.os.Message;
-import android.view.KeyEvent;
 
 public class YebobUI extends Activity {
 	public WebView appView;

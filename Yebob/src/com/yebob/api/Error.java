@@ -6,4 +6,5 @@ public class Error {
     public static final int RESPONSE_IS_NONE = -2;
     public static final int RESPONSE_HAS_ERROR = -3;
     public static final int RESPONSE_HAS_EXCEPTION = -4;
+    public static final int DOWNLOAD_ERROR = -5;
 }
