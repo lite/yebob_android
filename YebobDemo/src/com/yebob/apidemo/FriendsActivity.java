@@ -10,7 +10,7 @@ public class FriendsActivity extends YebobUI
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        visit("file:///android_asset/www/index.html");
-//        visit("http://alpha.yebob.com/mobui_demo/");
+//        visit("file:///android_asset/www/index.html");
+        visit("http://alpha.yebob.com/mobui_demo/");
     }
 }

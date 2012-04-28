@@ -24,7 +24,7 @@ public class MenuActivity extends Activity {
 		
 		addAppName();
 		addStartGameButton();
-		addFriendsButton();
+		addYebobButton();
 		addDemoButton();
 		addOptionButton();
 		addExitButton();
@@ -50,16 +50,16 @@ public class MenuActivity extends Activity {
 		});
 	}
 
-	private void addFriendsButton() {
-		TextView view = (TextView) findViewById(R.id.btnFriends);
+	private void addYebobButton() {
+		TextView view = (TextView) findViewById(R.id.btnYebob);
 		view.setTypeface(this.font);
 		view.setTextColor(Color.BLACK);
 		view.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Intent friends = new Intent(MenuActivity.this, FriendsActivity.class);
-				startActivity(friends);
+				Intent home = new Intent(MenuActivity.this, YebobHomeActivity.class);
+				startActivity(home);
 			}
 		});
 	}

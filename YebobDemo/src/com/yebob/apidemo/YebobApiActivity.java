@@ -60,6 +60,7 @@ public class YebobApiActivity extends Activity {
     	addRankingTopsButton(layout);
     	addStatusGetButton(layout);
     	addStatusExistsButton(layout);
+    	addInstallButton(layout);
 	}
 	
 	// access_token
@@ -298,6 +299,18 @@ public class YebobApiActivity extends Activity {
 		});
 	}
 
+	private void addInstallButton(LinearLayout layout) {
+		Button btn = new Button(this);
+		btn.setText("Install");
+		layout.addView(btn);
+		btn.setOnClickListener(new View.OnClickListener() {
+		    @Override
+		    public void onClick(View v) {
+		    	Api.showDetail(getApplication(), "com.trackeen.sea");
+		    }
+		});
+	}
+	
 	private void defaultErrorHandler(int code, String msg)
     {
 		setMessageText(String.format("code: %d, msg: %s", code, msg));

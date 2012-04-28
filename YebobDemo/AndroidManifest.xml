@@ -24,20 +24,12 @@
             android:configChanges="orientation"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
         <activity
-            android:name=".OptionsActivity"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
-        <activity
             android:name=".MenuActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
-        <activity
-            android:name=".YebobApiActivity"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
-        <activity
-            android:name=".FriendsActivity"
-            android:configChanges="orientation"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+        <activity android:name=".YebobApiActivity" />
+        <activity android:name=".YebobHomeActivity" />
+        <activity android:name=".FriendsActivity" />
+        <activity android:name=".OptionsActivity" />
     </application>
 </manifest>

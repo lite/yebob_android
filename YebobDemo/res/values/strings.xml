@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">ApiDemo</string>
     <string name="start_game">START GAME</string>
-    <string name="friends">FRIENDS</string>
+    <string name="yebob">YEBOB</string>
     <string name="demo">DEMO</string>
     <string name="options">OPTIONS</string>
     <string name="exit">EXIT</string>

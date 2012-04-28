@@ -10,6 +10,8 @@ import android.os.Message;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.HttpAuthHandler;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
@@ -27,9 +29,33 @@ public class YebobUI extends Activity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
+        CookieSyncManager.createInstance(this);
+        CookieSyncManager.getInstance().startSync();
+		CookieManager.getInstance().setAcceptCookie(true);
+		CookieManager.getInstance().removeExpiredCookie();
+
         setUpWebView();
     }
     
+    @Override
+    protected void onResume() {
+      super.onResume();
+      CookieSyncManager.getInstance().stopSync();
+    }
+
+    @Override
+    protected void onStop() {
+      super.onStop();
+      this.appView.destroy();
+      this.finish();
+    }
+
+    @Override
+    protected void onPause() {
+      super.onPause();
+      CookieSyncManager.getInstance().sync();
+    }
+        
     private void setUpWebView() {
         this.appView = new WebView(this);
         this.appView.setLayoutParams(new LinearLayout.LayoutParams(
