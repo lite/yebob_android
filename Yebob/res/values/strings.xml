@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_title">Home</string>
+    <string name="market_title">Market</string>
+    <string name="friends_title">Friends</string>
+    <string name="home_url">http://www.yebob.com/</string>
+    <string name="market_url">http://developer.yebob.com/</string>
+    <string name="friends_url">http://sns.yebob.com/</string>
+
+</resources>

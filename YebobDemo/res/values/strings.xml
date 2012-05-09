@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ApiDemo</string>
+    <string name="app_name">YebobDemo</string>
     <string name="start_game">START GAME</string>
     <string name="yebob">YEBOB</string>
     <string name="demo">DEMO</string>
     <string name="options">OPTIONS</string>
     <string name="exit">EXIT</string>
+    <string name="your_score">Your Score:</string>
+    <string name="add_1">Add 1</string>
+    <string name="add_10">Add 10</string>
+    <string name="add_100">Add 100</string>
+    <string name="game_over">Game Over</string>
+    <string name="submitting_your_score">Submitting your score...</string>
+    <string name="score_was_submitted">Score was submitted.</string>
+    <string name="awesome">Awesome!</string>
+    <string name="score_submit_error">Score submit error!</string>
+    <string name="too_bad">Too_bad!</string>
+
+
 </resources>
