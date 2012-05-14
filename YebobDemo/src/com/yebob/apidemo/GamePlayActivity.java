@@ -3,83 +3,109 @@ package com.yebob.apidemo;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Message;
 import android.view.View;
+import android.webkit.CookieManager;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+import com.yebob.api.*;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class GamePlayActivity extends Activity {
 
-	static final int	DIALOG_PROGRESS		= 0;
-	static final int	DIALOG_SUBMITTED	= 1;
-	static final int	DIALOG_FAILED		= 2;
-	
-	EditText			scoreField;
+    private static final int DIALOG_LOGIN_ID = 0;
 
-	public void addScore(int points) {
-		final int old = Integer.parseInt(scoreField.getText().toString());
-		scoreField.setText("" + (old + points));
-	}
+    private long gameScore = 0;
+    private EditText editScore;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.gameplay);
+    public void addScore(long points) {
+        editScore.setText("" + (gameScore + points));
+    }
 
-		scoreField = (EditText) findViewById(R.id.scoreText);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.gameplay);
 
-		((Button) findViewById(R.id.button_score1)).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(final View v) {
-				addScore(1);
-			}
-		});
-		((Button) findViewById(R.id.button_score10)).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(final View v) {
-				addScore(10);
-			}
-		});
-		((Button) findViewById(R.id.button_score100)).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(final View v) {
-				addScore(100);
-			}
-		});
+        editScore = (EditText) findViewById(R.id.scoreText);
 
-		((Button) findViewById(R.id.button_game_over)).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				double scoreResult;
-				try {
-					scoreResult = Double.valueOf(scoreField.getText().toString());
-				} catch(NumberFormatException ex) {
-					scoreResult = 0;
-				}
-				showDialog(DIALOG_PROGRESS);
-			}
-		});
+        Button buttonScore1 = ((Button) findViewById(R.id.button_score1));
+        buttonScore1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                addScore(1);
+            }
+        });
 
-	}
+        Button buttonScore10 = ((Button) findViewById(R.id.button_score10));
+        buttonScore10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                addScore(10);
+            }
+        });
 
-	protected Dialog onCreateDialog(int id) {
-		switch (id) {
-		case DIALOG_PROGRESS:
-			return ProgressDialog
-				.show(GamePlayActivity.this, "", getString(R.string.submitting_your_score));
-		case DIALOG_SUBMITTED:
-			return (new AlertDialog.Builder(this))
-				.setMessage(R.string.score_was_submitted)
-				.setTitle(R.string.app_name)
-				.setPositiveButton(R.string.awesome, null)
-				.create();
-		case DIALOG_FAILED:
-			return (new AlertDialog.Builder(this))
-				.setMessage(R.string.score_submit_error)
-				.setPositiveButton(R.string.too_bad, null)
-				.create();
-		}
-		return null;
-	}
+        Button buttonScore100 = ((Button) findViewById(R.id.button_score100));
+        buttonScore100.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                addScore(100);
+            }
+        });
+
+        Button buttonGameOver = ((Button) findViewById(R.id.button_game_over));
+        buttonGameOver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uploadScore(gameScore);
+            }
+        });
+    }
+
+    protected Dialog onCreateDialog(int id) {
+        Dialog dialog = null;
+        ;
+        switch (id) {
+            case DIALOG_LOGIN_ID:
+                dialog = new LoginUI(this, "http://www.douban.com/");
+                break;
+            default:
+                break;
+        }
+        return dialog;
+    }
+
+    private void uploadScore(long scoreResult) {
+        SharedPreferences settings = getSharedPreferences("YBPrefsFile", 0);
+        String sessionId = settings.getString("sessionId", "");
+        if (sessionId.length() > 0) {
+            // if session is valid, then do
+            if (isSessionValid(sessionId)) {
+                String token = "";
+                String listId = "";
+                Api.scoreSubmit(token, sessionId, listId, scoreResult, new YBHandler() {
+                    @Override
+                    public void execute(JSONObject json) throws JSONException {
+                        showMessage("upload successully.");
+                    }
+                });
+                return;
+            }
+        }
+
+        showDialog(DIALOG_LOGIN_ID);
+    }
+
+    private void showMessage(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+    }
+
+    private boolean isSessionValid(String sessionId) {
+        return false;  //To change body of created methods use File | Settings | File Templates.
+    }
 }

@@ -71,9 +71,7 @@ public class YBWebView extends WebView {
         gd = new GestureDetector(context, sogl);
 
         CookieSyncManager.createInstance(context);
-        CookieSyncManager.getInstance().startSync();
         CookieManager.getInstance().setAcceptCookie(true);
-        CookieManager.getInstance().removeExpiredCookie();
 
         WebSettings settings = this.getSettings();
         settings.setJavaScriptEnabled(true);
@@ -95,7 +93,7 @@ public class YBWebView extends WebView {
         }
 
         public void onPageFinished(WebView view, String url){
-            jsHandler.onReady();
+            jsHandler.onReady(view, url);
         }
 
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
