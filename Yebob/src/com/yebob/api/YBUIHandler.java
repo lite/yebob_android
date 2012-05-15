@@ -5,7 +5,7 @@ import android.webkit.CookieSyncManager;
 import android.webkit.WebView;
 
 public class YBUIHandler {
-    public void onReady(WebView view, String url) {
+    public void onReady(String url) {
     }
 
     public String getInstallUrl() {

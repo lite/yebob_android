@@ -93,7 +93,7 @@ public class YBWebView extends WebView {
         }
 
         public void onPageFinished(WebView view, String url){
-            jsHandler.onReady(view, url);
+            jsHandler.onReady(url);
         }
 
         public boolean shouldOverrideUrlLoading(WebView view, String url) {

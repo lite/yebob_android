@@ -1,24 +1,26 @@
 package com.yebob.apidemo;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Message;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import com.yebob.api.*;
+import com.yebob.api.Api;
+import com.yebob.api.LoginUI;
+import com.yebob.api.YBHandler;
+import com.yebob.api.YBUIHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class GamePlayActivity extends Activity {
 
     private static final int DIALOG_LOGIN_ID = 0;
+    public static final String YB_PREFS = "YebobPrefs";
 
     private long gameScore = 0;
     private EditText editScore;
@@ -67,45 +69,68 @@ public class GamePlayActivity extends Activity {
         });
     }
 
-    protected Dialog onCreateDialog(int id) {
-        Dialog dialog = null;
-        ;
-        switch (id) {
-            case DIALOG_LOGIN_ID:
-                dialog = new LoginUI(this, "http://www.douban.com/");
-                break;
-            default:
-                break;
+    public Dialog onCreateDialog(int id) {
+        if (id != DIALOG_LOGIN_ID) return null;
+
+        return new LoginUI(GamePlayActivity.this,
+                "http://www.douban.com/",
+                new YBUIHandler() {
+                    public void onReady(String url) {
+                        onLoginUIReady(url);
+                    }
+                });
+    }
+
+    private void onLoginUIReady(String url){
+        String cookie = CookieManager.getInstance().getCookie(url);
+        for (String item : cookie.split(";")) {
+            String[] strings = item.split("=");
+            if (strings.length > 1 && strings[0].equals("ue") && !strings[1].equals("")) {
+                updateSessionId(strings[1]);
+                dismissDialog(DIALOG_LOGIN_ID);
+            }
         }
-        return dialog;
     }
 
     private void uploadScore(long scoreResult) {
-        SharedPreferences settings = getSharedPreferences("YBPrefsFile", 0);
-        String sessionId = settings.getString("sessionId", "");
-        if (sessionId.length() > 0) {
-            // if session is valid, then do
-            if (isSessionValid(sessionId)) {
-                String token = "";
-                String listId = "";
-                Api.scoreSubmit(token, sessionId, listId, scoreResult, new YBHandler() {
-                    @Override
-                    public void execute(JSONObject json) throws JSONException {
-                        showMessage("upload successully.");
-                    }
-                });
-                return;
-            }
-        }
+        String token = "";
 
+        SharedPreferences settings = this.getSharedPreferences(YB_PREFS, 0);
+        String sessionId = settings.getString("sessionId", "");
+        if (isSessionValid(token, sessionId)) {
+            String listId = "";
+            Api.scoreSubmit(token, sessionId, listId, scoreResult, new YBHandler() {
+                @Override
+                public void execute(JSONObject json) throws JSONException {
+                    showMessage("score uploaded successully.");
+                }
+            });
+            return;
+        }
         showDialog(DIALOG_LOGIN_ID);
     }
 
-    private void showMessage(String message) {
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+    private void updateSessionId(String sessionId) {
+        SharedPreferences settings = this.getSharedPreferences(YB_PREFS, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("sessionId", sessionId);
+        editor.commit();
     }
 
-    private boolean isSessionValid(String sessionId) {
-        return false;  //To change body of created methods use File | Settings | File Templates.
+    private boolean isSessionValid(String token, String sessionId) {
+        if (sessionId.length() == 0) return false;
+        Api.me(token, sessionId, new YBHandler() {
+            @Override
+            public void execute(JSONObject json) throws JSONException {
+                showMessage(json.getString("community"));
+            }
+        });
+        return true;
     }
+
+    private void showMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+
 }

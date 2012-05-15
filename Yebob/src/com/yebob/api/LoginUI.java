@@ -8,22 +8,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
-import android.webkit.CookieManager;
-import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 public class LoginUI extends Dialog {
-
-    private String mUrl;
-    private ImageView closeImage;
     private YBWebView webView;
-    private FrameLayout layout;
+    private Context context;
+    private YBUIHandler jsHandler;
+    private String url;
 
-    public LoginUI(Context context, String url) {
+    public LoginUI(Context context, String url, YBUIHandler jsHandler) {
         super(context, android.R.style.Theme_Translucent_NoTitleBar);
-        mUrl = url;
+        this.context = context;
+        this.url = url;
+        this.jsHandler = jsHandler;
     }
 
     @Override
@@ -31,53 +30,34 @@ public class LoginUI extends Dialog {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        layout = new FrameLayout(getContext());
-
-        createCrossImage();
-
-        int crossWidth = closeImage.getDrawable().getIntrinsicWidth();
-        setUpWebView(crossWidth / 2);
-
-        layout.addView(closeImage, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-        addContentView(layout, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+        addContentView(setUpWebView(), new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
     }
 
-    private void createCrossImage() {
-        closeImage = new ImageView(getContext());
+    private FrameLayout setUpWebView() {
+        FrameLayout layout = new FrameLayout(context);
+
+        ImageView closeImage = new ImageView(context);
         closeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LoginUI.this.dismiss();
             }
         });
-        Drawable crossDrawable = getContext().getResources().getDrawable(R.drawable.close);
+        Drawable crossDrawable = context.getResources().getDrawable(R.drawable.close);
         closeImage.setImageDrawable(crossDrawable);
-        //closeImage.setVisibility(View.INVISIBLE);
-    }
-
-    private void setUpWebView(int margin) {
-        LinearLayout webViewContainer = new LinearLayout(getContext());
-        webView = new YBWebView(getContext());
+        layout.addView(closeImage, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+        LinearLayout webViewLayout = new LinearLayout(context);
+        webView = new YBWebView(context);
         webView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
                 ViewGroup.LayoutParams.FILL_PARENT));
-        //webView.setVisibility(View.INVISIBLE);
-        webView.loadUrl(mUrl);
-        webView.setJSHandler(new YBUIHandler() {
-            public void onReady(WebView view, String url) {
-                String cookie = CookieManager.getInstance().getCookie(url);
-                for (String item : cookie.split(";")) {
-                    String[] strings = item.split("=");
-                    if (strings.length > 1 && strings[0].equals("ue") && !strings[1].equals("")) {
-//                        SharedPreferences.Editor editor = settings.edit();
-//                        editor.putString("sessionId", strings[1]);
-//                        editor.commit();
-                    }
-                }
-            }
-        });
+        webView.setJSHandler(jsHandler);
+        webView.loadUrl(url);
 
-        webViewContainer.setPadding(margin, margin, margin, margin);
-        webViewContainer.addView(webView);
-        layout.addView(webViewContainer);
+        int margin = closeImage.getDrawable().getIntrinsicWidth();
+        webViewLayout.setPadding(margin, margin, margin, margin);
+        webViewLayout.addView(webView);
+        layout.addView(webViewLayout);
+
+        return layout;
     }
 }

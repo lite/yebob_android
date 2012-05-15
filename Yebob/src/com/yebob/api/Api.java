@@ -1,12 +1,11 @@
 package com.yebob.api;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
+import android.app.Application;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Environment;
+import android.util.Log;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -18,17 +17,18 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Application;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Environment;
-import android.util.Log;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class Api {
 	private final static String LOG_TAG = "YebobApi";
 	private final static String URL_PREFIX = "http://api.yebob.com";
-	
-	public static void accessToken(String app_id, String secret, YBHandler YBHandler) {
+
+    public static void accessToken(String app_id, String secret, YBHandler YBHandler) {
 		String url = String.format("%s/access_token?app_id=%s&secret=%s", URL_PREFIX, app_id, secret);
 
 		get(new HttpGet(url), YBHandler);
@@ -142,7 +142,7 @@ public class Api {
     {
         Log.e(LOG_TAG, "code:" + code + ", msg: {1}" + msg);
     }
-	
+
 	// ##########
 	private static void getWithTokenSession(String token, String session, String url, YBHandler YBHandler) {
 		HttpGet request = new HttpGet(url);
@@ -216,4 +216,5 @@ public class Api {
     {
         Log.e(LOG_TAG, json.toString());
     }
+
 }
