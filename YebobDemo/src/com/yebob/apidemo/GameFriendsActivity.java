@@ -10,6 +10,6 @@ public class GameFriendsActivity extends YebobUI
     {
         super.onCreate(savedInstanceState);
 //        loadUrl("file:///android_asset/www/index.html");
-        loadUrl("http://www.yebob.com/game/top");
+        loadUrl("http://graph.yebob.com/list/top");
     }
 }

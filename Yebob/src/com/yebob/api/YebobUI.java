@@ -2,10 +2,8 @@ package com.yebob.api;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
-import android.widget.ImageButton;
 import android.widget.RadioButton;
 
 public class YebobUI extends Activity {
@@ -32,20 +30,20 @@ public class YebobUI extends Activity {
         });
 
         buttonFriends = (RadioButton) findViewById(R.id.yb_shortcut_friends);
-        buttonFriends.setText(getString(R.string.friends_title));
+        buttonFriends.setText(getString(R.string.featuregames_title));
         buttonFriends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadUrl(getString(R.string.friends_url));
+                loadUrl(getString(R.string.featuregames_url));
             }
         });
 
         buttonMarket = (RadioButton) findViewById(R.id.yb_shortcut_market);
-        buttonMarket.setText(getString(R.string.market_title));
+        buttonMarket.setText(getString(R.string.friend_title));
         buttonMarket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadUrl(getString(R.string.market_url));
+                loadUrl(getString(R.string.friend_url));
             }
         });
     }

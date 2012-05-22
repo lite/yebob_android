@@ -73,7 +73,7 @@ public class GamePlayActivity extends Activity {
         if (id != DIALOG_LOGIN_ID) return null;
 
         return new LoginUI(GamePlayActivity.this,
-                "http://www.douban.com/",
+                "http://graph.yebob.com/list/login",
                 new YBUIHandler() {
                     public void onReady(String url) {
                         onLoginUIReady(url);

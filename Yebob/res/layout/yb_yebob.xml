@@ -29,7 +29,7 @@
                          android:layout_gravity="center"
                     />
             <RadioButton android:id="@+id/yb_shortcut_friends"
-                         android:button="@drawable/shortcut_friends"
+                         android:button="@drawable/shortcut_market"
                          android:layout_width="wrap_content"
                          android:layout_height="fill_parent"
                          android:layout_weight="1"
@@ -37,7 +37,7 @@
                     />
 
             <RadioButton android:id="@+id/yb_shortcut_market"
-                         android:button="@drawable/shortcut_market"
+                         android:button="@drawable/shortcut_friends"
                          android:layout_width="wrap_content"
                          android:layout_height="fill_parent"
                          android:layout_weight="1"
