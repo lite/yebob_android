@@ -76,20 +76,12 @@ public class GamePlayActivity extends Activity {
                 "http://graph.yebob.com/list/login",
                 new YBUIHandler() {
                     public void onReady(String url) {
-                        onLoginUIReady(url);
+                        dismissDialog(DIALOG_LOGIN_ID);
+                    }
+                    public void onLogin(String sessionId){
+                        updateSessionId(sessionId);
                     }
                 });
-    }
-
-    private void onLoginUIReady(String url){
-        String cookie = CookieManager.getInstance().getCookie(url);
-        for (String item : cookie.split(";")) {
-            String[] strings = item.split("=");
-            if (strings.length > 1 && strings[0].equals("ue") && !strings[1].equals("")) {
-                updateSessionId(strings[1]);
-                dismissDialog(DIALOG_LOGIN_ID);
-            }
-        }
     }
 
     private void uploadScore(long scoreResult) {

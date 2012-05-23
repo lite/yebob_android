@@ -93,7 +93,16 @@ public class YBWebView extends WebView {
         }
 
         public void onPageFinished(WebView view, String url){
-            jsHandler.onReady(url);
+            String cookie = CookieManager.getInstance().getCookie(url);
+            for (String item : cookie.split(";")) {
+                String[] strings = item.split("=");
+                if (strings.length > 1 ){
+                    if(strings[0].trim().equals("session")){
+                        jsHandler.onLogin(strings[1].trim());
+                        jsHandler.onReady(url);
+                    }
+                }
+            }
         }
 
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
