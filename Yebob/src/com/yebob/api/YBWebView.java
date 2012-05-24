@@ -106,17 +106,19 @@ public class YBWebView extends WebView {
         }
 
         public void onPageFinished(WebView view, String url){
-            if (progressBar.isShowing()) {
+            if (progressBar != null && progressBar.isShowing()) {
                 progressBar.hide();
             }
 
             String cookie = CookieManager.getInstance().getCookie(url);
-            for (String item : cookie.split(";")) {
-                String[] strings = item.split("=");
-                if (strings.length > 1 ){
-                    if(strings[0].trim().equals("session")){
-                        updateSession(strings[1].trim());
-                        jsHandler.onReady(url);
+            if(cookie!=null){
+                for (String item : cookie.split(";")) {
+                    String[] strings = item.split("=");
+                    if (strings.length > 1 ){
+                        if(strings[0].trim().equals("session")){
+                            updateSession(strings[1].trim());
+                            jsHandler.onReady(url);
+                        }
                     }
                 }
             }

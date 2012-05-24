@@ -7,7 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class YebobApi {
-    public static final String YB_PREFS = "yb_session_id";
+    public static final String YB_PREFS = "yb_session_id_test";
 
     private Context context;
     private Api api;
