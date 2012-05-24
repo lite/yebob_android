@@ -2,25 +2,22 @@ package com.yebob.apidemo;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.webkit.CookieManager;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-import com.yebob.api.Api;
-import com.yebob.api.LoginUI;
-import com.yebob.api.YBHandler;
-import com.yebob.api.YBUIHandler;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.yebob.api.*;
 
 public class GamePlayActivity extends Activity {
 
+    // http://developer.yebob.com/platform/#ManageAppKeysPlace:default
+    private static final String APP_KEY = "30wvt3bn-ohrh-2t5q-wxys-rjberbmvot1c";
+    private static final String APP_SECRET = "cv2922qf-k8ky-x28f-tx2e-c285cajck45c";
+
+    // http://developer.yebob.com/platform/#ManageListsPlace:default
+    private static final String APP_LISTID = "top10";
+
     private static final int DIALOG_LOGIN_ID = 0;
-    public static final String YB_PREFS = "YebobPrefs";
 
     private long gameScore = 0;
     private EditText editScore;
@@ -64,7 +61,12 @@ public class GamePlayActivity extends Activity {
         buttonGameOver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadScore(gameScore);
+                YebobApi api = YebobApi.getInstance(getApplicationContext(), APP_KEY, APP_SECRET);;
+                if (api.isSessionValid()){
+                    api.uploadScore(APP_LISTID, gameScore);
+                    return;
+                }
+                showDialog(DIALOG_LOGIN_ID);
             }
         });
     }
@@ -78,51 +80,6 @@ public class GamePlayActivity extends Activity {
                     public void onReady(String url) {
                         dismissDialog(DIALOG_LOGIN_ID);
                     }
-                    public void onLogin(String sessionId){
-                        updateSessionId(sessionId);
-                    }
                 });
     }
-
-    private void uploadScore(long scoreResult) {
-        String token = "";
-
-        SharedPreferences settings = this.getSharedPreferences(YB_PREFS, 0);
-        String sessionId = settings.getString("sessionId", "");
-        if (isSessionValid(token, sessionId)) {
-            String listId = "";
-            Api.scoreSubmit(token, sessionId, listId, scoreResult, new YBHandler() {
-                @Override
-                public void execute(JSONObject json) throws JSONException {
-                    showMessage("score uploaded successully.");
-                }
-            });
-            return;
-        }
-        showDialog(DIALOG_LOGIN_ID);
-    }
-
-    private void updateSessionId(String sessionId) {
-        SharedPreferences settings = this.getSharedPreferences(YB_PREFS, 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString("sessionId", sessionId);
-        editor.commit();
-    }
-
-    private boolean isSessionValid(String token, String sessionId) {
-        if (sessionId.length() == 0) return false;
-        Api.me(token, sessionId, new YBHandler() {
-            @Override
-            public void execute(JSONObject json) throws JSONException {
-                showMessage(json.getString("community"));
-            }
-        });
-        return true;
-    }
-
-    private void showMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-    }
-
-
 }

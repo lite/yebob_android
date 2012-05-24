@@ -1,6 +1,7 @@
 package com.yebob.api;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.http.SslError;
 import android.os.Handler;
 import android.os.Message;
@@ -88,6 +89,14 @@ public class YBWebView extends WebView {
             });
         }
     }
+
+    private void updateSession(String sessionId) {
+        SharedPreferences settings = getContext().getSharedPreferences(YebobApi.YB_PREFS, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("sessionId", sessionId);
+        editor.commit();
+    }
+
     private class YBWebViewClient extends WebViewClient {
         public void onPageStarted(WebView view, String url, android.graphics.Bitmap favicon) {
         }
@@ -98,7 +107,7 @@ public class YBWebView extends WebView {
                 String[] strings = item.split("=");
                 if (strings.length > 1 ){
                     if(strings[0].trim().equals("session")){
-                        jsHandler.onLogin(strings[1].trim());
+                        updateSession(strings[1].trim());
                         jsHandler.onReady(url);
                     }
                 }

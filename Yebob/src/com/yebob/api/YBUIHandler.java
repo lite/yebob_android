@@ -8,10 +8,6 @@ public class YBUIHandler {
     public void onReady(String url) {
     }
 
-    public void onLogin(String sessionId)
-    {
-    }
-
     public String getInstallUrl() {
         return "javascript:done()";
     }

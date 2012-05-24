@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -21,8 +19,6 @@ public class MainActivity extends Activity {
 
 		addStartGameButton();
 		addYebobButton();
-		addDemoButton();
-		addOptionButton();
 		addExitButton();
 	}
 
@@ -46,29 +42,6 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				Intent home = new Intent(MainActivity.this, GameFriendsActivity.class);
 				startActivity(home);
-			}
-		});
-	}
-
-	private void addDemoButton() {
-		TextView view = (TextView) findViewById(R.id.btnDemo);
-		view.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent demo = new Intent(MainActivity.this, GameYebobApiActivity.class);
-				startActivity(demo);
-			}
-		});
-	}
-
-	private void addOptionButton() {
-		TextView view = (TextView) findViewById(R.id.btnOptions);
-		view.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent options = new Intent(MainActivity.this, GameOptionsActivity.class);
-				startActivity(options);
 			}
 		});
 	}

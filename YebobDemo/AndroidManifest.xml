@@ -21,8 +21,6 @@
         </activity>
 
         <activity android:name=".GamePlayActivity" />
-        <activity android:name=".GameYebobApiActivity" />
         <activity android:name=".GameFriendsActivity" />
-        <activity android:name=".GameOptionsActivity" />
     </application>
 </manifest>

@@ -20,12 +20,6 @@
               android:id="@+id/btnYebob"/>
 
     <TextView android:textSize="18sp" android:layout_width="wrap_content" android:layout_gravity="center_horizontal"
-              android:layout_height="wrap_content" android:text="@string/demo" android:layout_weight="1"
-              android:id="@+id/btnDemo"/>
-    <TextView android:textSize="18sp" android:layout_width="wrap_content" android:layout_gravity="center_horizontal"
-              android:layout_height="wrap_content" android:text="@string/options" android:layout_weight="1"
-              android:id="@+id/btnOptions"/>
-    <TextView android:textSize="18sp" android:layout_width="wrap_content" android:layout_gravity="center_horizontal"
               android:layout_height="wrap_content" android:text="@string/exit" android:layout_weight="1"
               android:id="@+id/btnExit"/>
 </LinearLayout>
