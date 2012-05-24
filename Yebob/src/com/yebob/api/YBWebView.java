@@ -1,5 +1,6 @@
 package com.yebob.api;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.http.SslError;
@@ -17,6 +18,7 @@ public class YBWebView extends WebView {
     private static final int SWIPE_MAX_OFF_PATH = 250;
     private static final int SWIPE_THRESHOLD_VELOCITY = 200;
 
+    private ProgressDialog progressBar;
     private YBUIHandler jsHandler = null;
     private GestureDetector gd = null;
     private boolean flinged;
@@ -99,9 +101,14 @@ public class YBWebView extends WebView {
 
     private class YBWebViewClient extends WebViewClient {
         public void onPageStarted(WebView view, String url, android.graphics.Bitmap favicon) {
+            progressBar = ProgressDialog.show(getContext(), "", "Loading...");
         }
 
         public void onPageFinished(WebView view, String url){
+            if (progressBar.isShowing()) {
+                progressBar.dismiss();
+            }
+
             String cookie = CookieManager.getInstance().getCookie(url);
             for (String item : cookie.split(";")) {
                 String[] strings = item.split("=");

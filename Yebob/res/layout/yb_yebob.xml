@@ -5,6 +5,19 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+        <TextView android:id="@+id/title"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_weight="1"/>
+        <ImageView android:id="@+id/buttonClose"
+                   android:src="@drawable/yb_button_close"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"/>
+    </LinearLayout>
 
     <com.yebob.api.YBWebView
             android:id="@+id/webview"
@@ -22,27 +35,26 @@
             android:background="@drawable/yb_shortcut_background" >
 
             <RadioButton android:id="@+id/yb_shortcut_home"
-                         android:button="@drawable/shortcut_home"
+                         android:button="@null"
+                         android:background="@drawable/shortcut_home"
                          android:layout_width="wrap_content"
                          android:layout_height="fill_parent"
                          android:layout_weight="1"
-                         android:layout_gravity="center"
                     />
             <RadioButton android:id="@+id/yb_shortcut_friends"
-                         android:button="@drawable/shortcut_market"
+                         android:button="@null"
+                         android:background="@drawable/shortcut_friends"
                          android:layout_width="wrap_content"
                          android:layout_height="fill_parent"
                          android:layout_weight="1"
-                         android:layout_gravity="center"
                     />
 
             <RadioButton android:id="@+id/yb_shortcut_market"
-                         android:button="@drawable/shortcut_friends"
+                         android:button="@null"
+                         android:background="@drawable/shortcut_market"
                          android:layout_width="wrap_content"
                          android:layout_height="fill_parent"
                          android:layout_weight="1"
-                         android:layout_gravity="center"
                     />
         </RadioGroup>
-
 </LinearLayout>

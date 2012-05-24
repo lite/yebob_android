@@ -34,7 +34,7 @@ public class Api {
     }
 
     public String accessToken(String app_key, String secret) {
-		String url = String.format("%s/access_token?app_key=%s&secret=%s", URL_PREFIX, app_key, secret);
+		String url = String.format("%s/v3/access_token?app_key=%s&secret=%s", URL_PREFIX, app_key, secret);
 
 	    return getToken(new HttpGet(url));
 	}
@@ -65,7 +65,7 @@ public class Api {
 	}
 	
 	public void scoreSubmit(String session, String list_id, long score, YBHandler YBHandler) {
-		String url = String.format("%s/score/submit?list_id=%s&score=%d", 
+		String url = String.format("%s/v3/score/submit?list_id=%s&score=%d",
 				URL_PREFIX, list_id, score);
 
 		getWithTokenSession(token, session, url, YBHandler);
@@ -167,7 +167,8 @@ public class Api {
             String result = get(request);
             if(result != null){
                 JSONObject json = new JSONObject(result);
-                return json.getString("id");
+                JSONObject accessToken = (JSONObject) json.get("access_token");
+                return accessToken.getString("id");
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, e.toString());
