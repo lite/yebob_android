@@ -101,12 +101,13 @@ public class YBWebView extends WebView {
 
     private class YBWebViewClient extends WebViewClient {
         public void onPageStarted(WebView view, String url, android.graphics.Bitmap favicon) {
-            progressBar = ProgressDialog.show(getContext(), "", "Loading...");
+            if(progressBar == null) progressBar = ProgressDialog.show(getContext(), "", "Loading...");
+            else progressBar.show();
         }
 
         public void onPageFinished(WebView view, String url){
             if (progressBar.isShowing()) {
-                progressBar.dismiss();
+                progressBar.hide();
             }
 
             String cookie = CookieManager.getInstance().getCookie(url);

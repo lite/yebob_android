@@ -15,7 +15,8 @@ public class GamePlayActivity extends Activity {
     private static final String APP_SECRET = "cv2922qf-k8ky-x28f-tx2e-c285cajck45c";
 
     // http://developer.yebob.com/platform/#ManageListsPlace:default
-    private static final String APP_LISTID = "top10";
+    // private static final String APP_LISTID = "top10";
+    private static final String APP_LISTID = "h2l9n8ryk3";
 
     private static final int DIALOG_LOGIN_ID = 0;
 
@@ -23,7 +24,8 @@ public class GamePlayActivity extends Activity {
     private EditText editScore;
 
     public void addScore(long points) {
-        editScore.setText("" + (gameScore + points));
+        gameScore += points;
+        editScore.setText(Long.toString(gameScore));
     }
 
     @Override

@@ -28,6 +28,12 @@ public class YebobApi {
         String sessionId = settings.getString("sessionId", "");
         if (sessionId.length() == 0) return;
 
+        api.rankingLists(new YBHandler(){
+            @Override
+            public void execute(JSONObject json) throws JSONException {
+                showMessage(json.toString());
+            }
+        });
         api.scoreSubmit(sessionId, listId, score, new YBHandler(){
             @Override
             public void execute(JSONObject json) throws JSONException {
