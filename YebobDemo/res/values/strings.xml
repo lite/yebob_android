@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <string name="app_key">30wvt3bn-ohrh-2t5q-wxys-rjberbmvot1c</string>
+    <string name="app_secret">cv2922qf-k8ky-x28f-tx2e-c285cajck45c</string>
+    <string name="app_listid">h2l9n8ryk3</string>
+
     <string name="app_name">YebobDemo</string>
     <string name="start_game">START GAME</string>
     <string name="yebob">YEBOB</string>

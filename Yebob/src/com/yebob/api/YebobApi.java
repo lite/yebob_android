@@ -7,20 +7,29 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class YebobApi {
-    public static final String YB_PREFS = "yb_session_id_test";
+    public static final String YB_PREFS = "yb_session_id";
+
+    private static YebobApi instance = null;
 
     private Context context;
     private Api api;
-
-    public static YebobApi getInstance(Context context, String app_key, String app_secret)
+    public static YebobApi getInstance()
     {
-        return new YebobApi(context, app_key, app_secret);
+        if (instance != null) return instance;
+        instance = new YebobApi();
+        return instance;
     }
 
-    protected YebobApi(Context context,  String app_key, String app_secret)
-    {
+    public void init(Context context, String app_key, String app_secret){
         this.context = context;
         api = new Api(app_key, app_secret);
+    }
+    protected YebobApi()
+    {
+    }
+
+    public String getToken(){
+        return api.getToken();
     }
 
     public void uploadScore(String listId, long score) {

@@ -9,15 +9,6 @@ import android.widget.EditText;
 import com.yebob.api.*;
 
 public class GamePlayActivity extends Activity {
-
-    // http://developer.yebob.com/platform/#ManageAppKeysPlace:default
-    private static final String APP_KEY = "30wvt3bn-ohrh-2t5q-wxys-rjberbmvot1c";
-    private static final String APP_SECRET = "cv2922qf-k8ky-x28f-tx2e-c285cajck45c";
-
-    // http://developer.yebob.com/platform/#ManageListsPlace:default
-    // private static final String APP_LISTID = "top10";
-    private static final String APP_LISTID = "h2l9n8ryk3";
-
     private static final int DIALOG_LOGIN_ID = 0;
 
     private long gameScore = 0;
@@ -63,9 +54,9 @@ public class GamePlayActivity extends Activity {
         buttonGameOver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                YebobApi api = YebobApi.getInstance(getApplicationContext(), APP_KEY, APP_SECRET);;
-                if (api.isSessionValid()){
-                    api.uploadScore(APP_LISTID, gameScore);
+                if (YebobApi.getInstance().isSessionValid()){
+                    String app_listid = getResources().getString(R.string.app_listid);
+                    YebobApi.getInstance().uploadScore(app_listid, gameScore);
                     return;
                 }
                 showDialog(DIALOG_LOGIN_ID);

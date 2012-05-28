@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/sl_login"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+    <RadioGroup
+            android:id="@+id/yb_shortcut"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_weight="9"
+            android:background="@drawable/yb_shortcut_background" >
+
+        <RadioButton android:id="@+id/yb_shortcut_home"
+                     android:button="@null"
+                     android:background="@drawable/shortcut_home"
+                     android:layout_width="fill_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="1"
+                />
+
+        <RadioButton android:id="@+id/yb_shortcut_friends"
+                     android:button="@null"
+                     android:background="@drawable/shortcut_friends"
+                     android:layout_width="fill_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="1"
+                />
+
+        <RadioButton android:id="@+id/yb_shortcut_featuregames"
+                     android:button="@null"
+                     android:background="@drawable/shortcut_market"
+                     android:layout_width="fill_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="1"
+                />
+    </RadioGroup>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+            <TextView android:id="@+id/title"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_weight="1"/>
+            <ImageView android:id="@+id/buttonClose"
+                       android:src="@drawable/yb_button_close"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <com.yebob.api.YBWebView
+                android:id="@+id/webview"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                />
+    </LinearLayout>
+</LinearLayout>

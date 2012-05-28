@@ -10,7 +10,7 @@ public class YebobUI extends Activity {
     private YBWebView webView;
     private RadioButton buttonHome;
     private RadioButton buttonFriends;
-    private RadioButton buttonMarket;
+    private RadioButton buttonFeatureGames;
     private ImageView buttonClose;
     private TextView title;
 
@@ -43,8 +43,9 @@ public class YebobUI extends Activity {
             }
         });
 
-        buttonFriends = (RadioButton) findViewById(R.id.yb_shortcut_friends);
-        buttonFriends.setOnClickListener(new View.OnClickListener() {
+
+        buttonFeatureGames = (RadioButton) findViewById(R.id.yb_shortcut_featuregames);
+        buttonFeatureGames.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 title.setText(getString(R.string.featuregames_title));
@@ -52,12 +53,12 @@ public class YebobUI extends Activity {
             }
         });
 
-        buttonMarket = (RadioButton) findViewById(R.id.yb_shortcut_market);
-        buttonMarket.setOnClickListener(new View.OnClickListener() {
+        buttonFriends = (RadioButton) findViewById(R.id.yb_shortcut_friends);
+        buttonFriends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                title.setText(getString(R.string.friend_title));
-                loadUrl(getString(R.string.friend_url));
+                title.setText(getString(R.string.friends_title));
+                loadUrl(getString(R.string.friends_url));
             }
         });
     }

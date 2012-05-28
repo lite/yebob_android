@@ -31,7 +31,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="horizontal"
-            android:layout_weight="11"
+            android:layout_weight="9"
             android:background="@drawable/yb_shortcut_background" >
 
             <RadioButton android:id="@+id/yb_shortcut_home"
@@ -41,6 +41,7 @@
                          android:layout_height="fill_parent"
                          android:layout_weight="1"
                     />
+
             <RadioButton android:id="@+id/yb_shortcut_friends"
                          android:button="@null"
                          android:background="@drawable/shortcut_friends"
@@ -49,12 +50,13 @@
                          android:layout_weight="1"
                     />
 
-            <RadioButton android:id="@+id/yb_shortcut_market"
+            <RadioButton android:id="@+id/yb_shortcut_featuregames"
                          android:button="@null"
                          android:background="@drawable/shortcut_market"
                          android:layout_width="wrap_content"
                          android:layout_height="fill_parent"
                          android:layout_weight="1"
                     />
+
         </RadioGroup>
 </LinearLayout>

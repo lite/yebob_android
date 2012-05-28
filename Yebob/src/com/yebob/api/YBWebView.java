@@ -78,6 +78,7 @@ public class YBWebView extends WebView {
 
         WebSettings settings = this.getSettings();
         settings.setJavaScriptEnabled(true);
+
         setWebViewClient(new YBWebViewClient());
     }
 
@@ -101,8 +102,12 @@ public class YBWebView extends WebView {
 
     private class YBWebViewClient extends WebViewClient {
         public void onPageStarted(WebView view, String url, android.graphics.Bitmap favicon) {
-            if(progressBar == null) progressBar = ProgressDialog.show(getContext(), "", "Loading...");
+            String title = getResources().getString(R.string.title_loading);
+            String message = getResources().getString(R.string.message_loading);
+            if(progressBar == null) progressBar = ProgressDialog.show(getContext(), title, message);
             else progressBar.show();
+            String token =  YebobApi.getInstance().getToken();
+            CookieManager.getInstance().setCookie(url, "access_token=" + token);
         }
 
         public void onPageFinished(WebView view, String url){

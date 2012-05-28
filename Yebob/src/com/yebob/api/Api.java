@@ -33,6 +33,10 @@ public class Api {
         token = accessToken(app_key, app_secret);
     }
 
+    public String getToken(){
+        return token;
+    }
+
     public String accessToken(String app_key, String secret) {
 		String url = String.format("%s/v3/access_token?app_key=%s&secret=%s", URL_PREFIX, app_key, secret);
 
