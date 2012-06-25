@@ -14,24 +14,24 @@
             android:background="@drawable/yb_shortcut_background" >
 
         <RadioButton android:id="@+id/yb_shortcut_home"
-                     android:button="@null"
-                     android:background="@drawable/shortcut_home"
+                     android:button="@drawable/shortcut_home"
+                     android:background="@null"
                      android:layout_width="fill_parent"
                      android:layout_height="wrap_content"
                      android:layout_weight="1"
                 />
 
         <RadioButton android:id="@+id/yb_shortcut_friends"
-                     android:button="@null"
-                     android:background="@drawable/shortcut_friends"
+                     android:button="@drawable/shortcut_friends"
+                     android:background="@null"
                      android:layout_width="fill_parent"
                      android:layout_height="wrap_content"
                      android:layout_weight="1"
                 />
 
         <RadioButton android:id="@+id/yb_shortcut_featuregames"
-                     android:button="@null"
-                     android:background="@drawable/shortcut_market"
+                     android:button="@drawable/shortcut_market"
+                     android:background="@null"
                      android:layout_width="fill_parent"
                      android:layout_height="wrap_content"
                      android:layout_weight="1"

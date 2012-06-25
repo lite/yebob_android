@@ -27,13 +27,18 @@ public class Api {
 	private final static String LOG_TAG = "YebobApi";
 	private final static String URL_PREFIX = "http://api.yebob.com";
 
-    private String token;
+    private String token = null;
+    private String app_key = null;
+    private String app_secret = null;
 
     public Api(String app_key, String app_secret){
-        token = accessToken(app_key, app_secret);
+        this.app_key = app_key;
+        this.app_secret = app_secret;
+        getToken();
     }
 
     public String getToken(){
+        if(token == null) token = accessToken(app_key, app_secret);
         return token;
     }
 
